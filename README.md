@@ -38,7 +38,7 @@ Design Notes
 *API Design*
 
 The API was designed with a contract first approach using openapi3 spec. The specification file
-can be found under `src/main/resources/static/api-docs.yaml`. A live version with swagger ui is also 
+can be found under [a relative link](src/main/resources/static/api-docs.yaml). A live version with swagger ui is also 
 available when running the application at: http://localhost:8080/api/v1/swagger-ui/index.html
 
 *Datastore*
