@@ -28,7 +28,7 @@ mvn clean test verify
 ```
 
 Coverage reports will then be generated under the `target/site/` directory and can be
-viewed locally by loading up the `target/site/index.html` file on a browser
+viewed locally by loading up the `target/site/jacoco/index.html` file on a browser
 
 Coverage threshold is configured using jacaco plugin as 80% line coverage
 
