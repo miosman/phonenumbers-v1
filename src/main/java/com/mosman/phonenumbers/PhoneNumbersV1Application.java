@@ -2,6 +2,7 @@ package com.mosman.phonenumbers;
 
 import org.springdoc.core.SpringDocConfigProperties;
 import org.springdoc.core.SpringDocConfiguration;
+import org.springdoc.core.providers.ObjectMapperProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -35,5 +36,8 @@ public class PhoneNumbersV1Application {
     public SpringDocConfigProperties springDocConfigProperties() {
         return new SpringDocConfigProperties();
     }
+
+    @Bean
+    public ObjectMapperProvider objectMapperProvider() { return new ObjectMapperProvider(springDocConfigProperties());}
 
 }
