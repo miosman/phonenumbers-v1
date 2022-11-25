@@ -3,6 +3,7 @@ package com.mosman.phonenumbers.repository;
 import com.mosman.phonenumbers.model.db.PhoneNumber;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * SpringDataJPA repository for {@link PhoneNumber} entity
  */
 @Repository
-public interface PhoneNumberRepository extends PagingAndSortingRepository<PhoneNumber, String> {
+public interface PhoneNumberRepository extends PagingAndSortingRepository<PhoneNumber, String>, CrudRepository<PhoneNumber,String> {
 
     /**
      * finds a PhoneNumber by provided customerName and supports pagination

@@ -2,7 +2,7 @@ package com.mosman.phonenumbers.model.db;
 
 import com.mosman.phonenumbers.model.PhoneNumberStatus;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Entity Model representing a phonenumber

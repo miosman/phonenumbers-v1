@@ -7,7 +7,7 @@ Usage
 =====
 
 To run the api you need the following requirements
-* JDK 11+
+* JDK 17+
 * Maven
 
 To run the application run
@@ -15,9 +15,21 @@ To run the application run
 mvn spring-boot:run
 ```
 
-The api will be available at: http://locahost:8080/api/v1/phonenumbers
+The api will be available at: http://localhost:8080/api/v1/phonenumbers
 
 Live API Docs are available at: http://localhost:8080/api/v1/swagger-ui/index.html
+
+Native Image
+==========
+To build the application as a native image using Docker run
+```shell
+mvn -Pnative spring-boot:build-image
+```
+
+To run the resulting image 
+```shell
+docker run docker.io/library/phone-numbers-v1:0.0.1-SNAPSHOT
+```
 
 Test Coverage
 =====
