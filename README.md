@@ -7,7 +7,7 @@ Usage
 =====
 
 To run the api you need the following requirements
-* JDK 17+
+* JDK 21+
 * Maven
 
 To run the application run
