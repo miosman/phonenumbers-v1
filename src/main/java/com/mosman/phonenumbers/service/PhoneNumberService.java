@@ -5,7 +5,6 @@ import com.mosman.phonenumbers.model.db.PhoneNumber;
 import com.mosman.phonenumbers.model.dto.PhoneNumberDTO;
 import com.mosman.phonenumbers.model.dto.PhoneNumbersPageResponseDTO;
 import com.mosman.phonenumbers.repository.PhoneNumberRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -37,19 +36,26 @@ public class PhoneNumberService {
      * @return The response containing the total count of records and a list of phone number records.
      */
     public PhoneNumbersPageResponseDTO searchPhoneNumbers(String customerName, int page, int limit) {
-        var phoneNumbersPageResponse = new PhoneNumbersPageResponseDTO();
-        Page<PhoneNumber> phoneNumbersPage;
-        PageRequest pageRequest = PageRequest.of(page, limit);
-        if (!StringUtils.isEmpty(customerName)) {
-            phoneNumbersPage = phoneNumberRepository.findPhoneNumberByCustomerName(customerName, pageRequest);
-        } else {
-            phoneNumbersPage = phoneNumberRepository.findAll(pageRequest);
+        if (page < 0 || limit <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid page or limit values");
         }
 
-        phoneNumbersPageResponse.setTotalCount(phoneNumbersPage.getTotalElements());
-        phoneNumbersPageResponse.setRecords(phoneNumbersPage.stream().map(dbModel -> new PhoneNumberDTO(dbModel.getSubscriberNumber(), dbModel.getCustomer().getName(), dbModel.getStatus())).collect(Collectors.toList()));
+        try {
+            PageRequest pageRequest = PageRequest.of(page, limit);
+            Page<PhoneNumber> phoneNumbersPage = Optional.ofNullable(customerName)
+                    .filter(name -> !name.trim().isEmpty())
+                    .map(name -> phoneNumberRepository.findPhoneNumberByCustomerName(name, pageRequest))
+                    .orElseGet(() -> phoneNumberRepository.findAll(pageRequest));
 
-        return phoneNumbersPageResponse;
+            return new PhoneNumbersPageResponseDTO(
+                    phoneNumbersPage.getTotalElements(),
+                    phoneNumbersPage.stream()
+                            .map(this::mapToPhoneNumberDTO)
+                            .collect(Collectors.toList())
+            );
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error while fetching phone numbers", e);
+        }
     }
 
     /**
@@ -70,5 +76,19 @@ public class PhoneNumberService {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Subscriber Number not found");
         }
+    }
+
+    /**
+     * Maps a PhoneNumber entity to its DTO representation.
+     *
+     * @param phoneNumber The phone number entity to be mapped
+     * @return A {@link PhoneNumberDTO} containing the subscriber number, customer name and status
+     */
+    private PhoneNumberDTO mapToPhoneNumberDTO(PhoneNumber phoneNumber) {
+        return new PhoneNumberDTO(
+                phoneNumber.getSubscriberNumber(),
+                phoneNumber.getCustomer().getName(),
+                phoneNumber.getStatus()
+        );
     }
 }

@@ -4,9 +4,7 @@ import com.mosman.phonenumbers.model.PhoneNumberStatus;
 
 import jakarta.persistence.*;
 
-/**
- * Entity Model representing a phonenumber
- */
+
 @Entity
 @Table(name = "phonenumbers")
 public class PhoneNumber {

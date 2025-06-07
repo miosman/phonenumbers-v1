@@ -9,6 +9,11 @@ public class PhoneNumbersPageResponseDTO {
     private long totalCount;
     private List<PhoneNumberDTO> records;
 
+    public PhoneNumbersPageResponseDTO(long totalCount, List<PhoneNumberDTO> records) {
+        this.totalCount = totalCount;
+        this.records = records;
+    }
+
     /**
      * Returns the total count of records matching the criteria
      *

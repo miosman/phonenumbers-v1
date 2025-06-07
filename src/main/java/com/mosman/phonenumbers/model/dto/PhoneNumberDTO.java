@@ -1,13 +1,23 @@
 package com.mosman.phonenumbers.model.dto;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import com.mosman.phonenumbers.model.PhoneNumberStatus;
 
 /**
  * DTO model for a phoneNumber
  */
+@Valid
 public class PhoneNumberDTO {
+    @NotBlank(message = "Subscriber number is required")
+    @Pattern(regexp = "^\\d{10}$", message = "Subscriber number must be a 10-digit number")
     private String subscriberNumber;
+
+    @NotBlank(message = "Customer name is required")
+    @Size(min = 2, max = 100, message = "Customer name must be between 2 and 100 characters")
     private String customerName;
+
+    @NotNull(message = "Status is required")
     private PhoneNumberStatus status;
 
     public PhoneNumberDTO() {

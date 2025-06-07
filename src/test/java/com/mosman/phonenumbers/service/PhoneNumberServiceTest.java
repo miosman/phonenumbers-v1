@@ -33,7 +33,7 @@ public class PhoneNumberServiceTest {
     private PhoneNumberService phoneNumberService;
 
     @Test
-    @DisplayName("")
+    @DisplayName("Should return empty list when no phone numbers found")
     public void testSearchPhoneNumbersWithEmptyCustomerName()
     {
         //Given
@@ -46,12 +46,12 @@ public class PhoneNumberServiceTest {
 
         //Assert
         verify(mockPhoneNumberRepository,times(1)).findAll(any(Pageable.class));
-        Assertions.assertEquals(actual.getTotalCount(),0L);
-        Assertions.assertEquals(actual.getRecords().size(),0L);
+        Assertions.assertEquals(0L, actual.getTotalCount());
+        Assertions.assertEquals(0L, actual.getRecords().size());
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Should return phone numbers when customer name is not empty")
     public void testSearchPhoneNumbersWithNonEmptyCustomerName()
     {
         //Given
@@ -68,15 +68,15 @@ public class PhoneNumberServiceTest {
 
         //Assert
         verify(mockPhoneNumberRepository,times(1)).findPhoneNumberByCustomerName(eq(customerName),any(Pageable.class));
-        Assertions.assertEquals(actual.getTotalCount(),1L);
-        Assertions.assertEquals(actual.getRecords().size(),1L);
-        Assertions.assertEquals(actual.getRecords().get(0).getSubscriberNumber(),subscriberNumber);
-        Assertions.assertEquals(actual.getRecords().get(0).getCustomerName(),customerName);
-        Assertions.assertEquals(actual.getRecords().get(0).getStatus(),status);
+        Assertions.assertEquals(1L, actual.getTotalCount());
+        Assertions.assertEquals(1L, actual.getRecords().size());
+        Assertions.assertEquals(subscriberNumber, actual.getRecords().getFirst().getSubscriberNumber());
+        Assertions.assertEquals(customerName, actual.getRecords().getFirst().getCustomerName());
+        Assertions.assertEquals(status, actual.getRecords().getFirst().getStatus());
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Should throw exception when subscriber number is not found")
     public void testUpdatePhoneNumberStatusWithNonExistingSubscriberNumber()
     {
         //Given
@@ -91,7 +91,7 @@ public class PhoneNumberServiceTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Should successfully update status for existing subscriber number")
     public void testUpdatePhoneNumberStatusWithExistingSubscriberNumber()
     {
         //Given
@@ -106,6 +106,60 @@ public class PhoneNumberServiceTest {
 
         //Assert
         Assertions.assertEquals(updatedStatus,actual.getStatus());
+    }
+
+    @Test
+    @DisplayName("Should throw exception when page number is negative")
+    public void testSearchPhoneNumbersWithNegativePage() {
+        Assertions.assertThrows(ResponseStatusException.class,
+            () -> phoneNumberService.searchPhoneNumbers("customer", -1, 10),
+            "Invalid page or limit values");
+    }
+
+    @Test
+    @DisplayName("Should throw exception when limit is zero or negative")
+    public void testSearchPhoneNumbersWithInvalidLimit() {
+        Assertions.assertThrows(ResponseStatusException.class,
+            () -> phoneNumberService.searchPhoneNumbers("customer", 0, 0),
+            "Invalid page or limit values");
+    }
+
+    @Test
+    @DisplayName("Should handle repository exception during search")
+    public void testSearchPhoneNumbersWithRepositoryException() {
+        when(mockPhoneNumberRepository.findAll(any(Pageable.class)))
+            .thenThrow(new RuntimeException("Database error"));
+
+        Assertions.assertThrows(ResponseStatusException.class,
+            () -> phoneNumberService.searchPhoneNumbers(null, 0, 10));
+    }
+
+    @Test
+    @DisplayName("Should handle null customer name")
+    public void testSearchPhoneNumbersWithNullCustomerName() {
+        List<PhoneNumber> phoneNumbers = new ArrayList<>();
+        Page<PhoneNumber> phoneNumberPage = new PageImpl<>(phoneNumbers);
+        when(mockPhoneNumberRepository.findAll(any(Pageable.class))).thenReturn(phoneNumberPage);
+
+        phoneNumberService.searchPhoneNumbers(null, 0, 10);
+
+        verify(mockPhoneNumberRepository, times(1)).findAll(any(Pageable.class));
+        verify(mockPhoneNumberRepository, never()).findPhoneNumberByCustomerName(any(), any());
+    }
+
+    @Test
+    @DisplayName("Should verify save operation when updating status")
+    public void testUpdatePhoneNumberStatusSaveOperation() {
+        var subscriberNumber = "123";
+        var status = PhoneNumberStatus.ACTIVE;
+        var phoneNumber = createPhoneNumberEntity(subscriberNumber, "customer", PhoneNumberStatus.IN_ACTIVE);
+
+        when(mockPhoneNumberRepository.findById(subscriberNumber)).thenReturn(Optional.of(phoneNumber));
+
+        phoneNumberService.updatePhoneNumberStatus(subscriberNumber, status);
+
+        verify(mockPhoneNumberRepository, times(1)).save(phoneNumber);
+        Assertions.assertEquals(status, phoneNumber.getStatus());
     }
 
 

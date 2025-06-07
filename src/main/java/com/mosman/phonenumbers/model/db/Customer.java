@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size; // Import Size annotation
 
 /**
  * Entity Model representing a customer
@@ -16,6 +18,8 @@ public class Customer {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "Customer name cannot be blank") // Ensures name is not null and not just whitespace
+    @Size(min = 2, max = 100, message = "Customer name must be between 2 and 100 characters") // Optional: Enforces length constraints
     @Column(name = "name")
     private String name;
 
