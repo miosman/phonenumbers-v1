@@ -1,0 +1,30 @@
+# Spring Boot Upgrade Documentation
+
+## Overview
+This document outlines the steps taken to upgrade the project to Spring Boot 3.5.0.
+
+## Changes Made
+
+1. Updated Spring Boot version from 3.3.9 to 3.5.0
+   - Modified `pom.xml` to update the parent version
+
+2. Updated springdoc-openapi-starter-webmvc-ui from 2.6.0 to 2.4.0
+   - Version 2.4.0 is compatible with Spring Boot 3.5.0
+
+## Verification Steps
+
+1. Built the project successfully
+2. Ran application tests successfully
+3. Ran service tests successfully
+4. Ran integration tests successfully
+
+## Notes
+
+- All functionality is preserved with the updated dependencies
+- The springdoc-openapi-starter-webmvc-ui dependency was downgraded to version 2.4.0 to ensure compatibility with Spring Boot 3.5.0
+
+## Future Considerations
+
+1. Monitor for newer versions of springdoc-openapi-starter-webmvc-ui that are compatible with Spring Boot 3.5.0
+2. Consider upgrading to newer versions of Spring Boot as they become available
+3. Regularly check for security updates and patches

@@ -66,3 +66,4 @@ Uses Spring's `ResponseStatusException` for HTTP error responses. Global excepti
 ### Virtual Threads
 Application uses virtual threads (`spring.threads.virtual.enabled=true`) for improved concurrency performance.
 - use conventional commits when creating commit messages
+- use ./mvnw instead of mvn when running maven commands

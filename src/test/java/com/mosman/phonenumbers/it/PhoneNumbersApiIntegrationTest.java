@@ -2,7 +2,7 @@ package com.mosman.phonenumbers.it;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mosman.phonenumbers.model.PhoneNumberStatus;
-import com.mosman.phonenumbers.model.dto.PhoneNumberDTO;
+import com.mosman.phonenumbers.model.dto.PhoneNumberPatchDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -60,8 +60,8 @@ public class PhoneNumbersApiIntegrationTest {
     @Test
     public void testPatchPhoneNumberWithNonExistingSubscriberNumber() throws Exception {
 
-        var subscriberNumber = "1234";
-        var requestBody = new PhoneNumberDTO();
+        var subscriberNumber = "1234567890";
+        var requestBody = new PhoneNumberPatchDTO();
         requestBody.setStatus(PhoneNumberStatus.ACTIVE);
 
         mockMvc.perform(patch(PATCH_PHONE_NUMBER_RESOURCE_PATH,subscriberNumber)
@@ -75,7 +75,7 @@ public class PhoneNumbersApiIntegrationTest {
     public void testPatchPhoneNumberWithExistingSubscriberNumberAndInactiveStatus() throws Exception {
 
         var subscriberNumber = "455555551";
-        var requestBody = new PhoneNumberDTO();
+        var requestBody = new PhoneNumberPatchDTO();
         requestBody.setStatus(PhoneNumberStatus.IN_ACTIVE);
 
         mockMvc.perform(patch(PATCH_PHONE_NUMBER_RESOURCE_PATH,subscriberNumber)
