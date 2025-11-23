@@ -19,7 +19,7 @@ Use `./mvnw` instead of `mvn` if Maven is not globally installed.
 
 ## Architecture Overview
 
-This is a Spring Boot 3.5.0 REST API for managing phone numbers with JDK 21 and virtual threads enabled.
+This is a Spring Boot 4.0.0 REST API for managing phone numbers with JDK 21 and virtual threads enabled.
 
 ### Key Components
 - **Controller Layer**: `PhoneNumberController` handles REST endpoints
@@ -49,11 +49,12 @@ This is a Spring Boot 3.5.0 REST API for managing phone numbers with JDK 21 and 
 
 ### Dependencies
 - Spring Boot Starter Web & JPA
-- SpringDoc OpenAPI (v2.8.8) for API documentation
-- Flyway for database migrations
+- SpringDoc OpenAPI (v3.0.0) for API documentation
+- Flyway for database migrations (via spring-boot-starter-flyway)
 - H2 Database for in-memory storage
 - Hibernate Validator
 - JaCoCo for test coverage reporting
+- Jackson 3 for JSON processing (via spring-boot-starter-jackson)
 
 ## Development Notes
 
