@@ -4,9 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import com.mosman.phonenumbers.model.PhoneNumberStatus;
 
-/**
- * DTO model for a phoneNumber
- */
+/// DTO model for a phoneNumber
 @Valid
 public class PhoneNumberDTO {
     @NotBlank(message = "Subscriber number is required")
@@ -29,56 +27,44 @@ public class PhoneNumberDTO {
         this.status = status;
     }
 
-    /**
-     * Return the subscriberNumber
-     *
-     * @return {@link String} subscriberNumber
-     */
+    /// Return the subscriberNumber
+    ///
+    /// @return [String] subscriberNumber
     public String getSubscriberNumber() {
         return subscriberNumber;
     }
 
-    /**
-     * sets the subscriberNumber
-     *
-     * @param subscriberNumber the subscriber number
-     */
+    /// sets the subscriberNumber
+    ///
+    /// @param subscriberNumber the subscriber number
     public void setSubscriberNumber(String subscriberNumber) {
         this.subscriberNumber = subscriberNumber;
     }
 
-    /**
-     * Returns the customer name that the PhoneNumber belongs to
-     *
-     * @return {@link String} name of customer that the PhoneNumber belongs to
-     */
+    /// Returns the customer name that the PhoneNumber belongs to
+    ///
+    /// @return [String] name of customer that the PhoneNumber belongs to
     public String getCustomerName() {
         return customerName;
     }
 
-    /**
-     * Sets the customer name that the PhoneNumber belongs to
-     *
-     * @param customerName name of customer
-     */
+    /// Sets the customer name that the PhoneNumber belongs to
+    ///
+    /// @param customerName name of customer
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
 
-    /**
-     * Returns the status of the PhoneNumber
-     *
-     * @return {@link PhoneNumberStatus} the status of the PhoneNumber
-     */
+    /// Returns the status of the PhoneNumber
+    ///
+    /// @return [PhoneNumberStatus] the status of the PhoneNumber
     public PhoneNumberStatus getStatus() {
         return status;
     }
 
-    /**
-     * Sets the status of the PhoneNumber
-     *
-     * @param status {@link PhoneNumberStatus} the status of the PhoneNumber
-     */
+    /// Sets the status of the PhoneNumber
+    ///
+    /// @param status [PhoneNumberStatus] the status of the PhoneNumber
     public void setStatus(PhoneNumberStatus status) {
         this.status = status;
     }

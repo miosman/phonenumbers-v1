@@ -21,56 +21,44 @@ public class PhoneNumber {
     @Enumerated(EnumType.STRING)
     private PhoneNumberStatus status;
 
-    /**
-     * Return the subscriberNumber
-     *
-     * @return {@link String} subscriberNumber
-     */
+    /// Return the subscriberNumber
+    ///
+    /// @return [String] subscriberNumber
     public String getSubscriberNumber() {
         return subscriberNumber;
     }
 
-    /**
-     * sets the subscriberNumber
-     *
-     * @param subscriberNumber the subscriber number
-     */
+    /// sets the subscriberNumber
+    ///
+    /// @param subscriberNumber the subscriber number
     public void setSubscriberNumber(String subscriberNumber) {
         this.subscriberNumber = subscriberNumber;
     }
 
-    /**
-     * Returns the {@link Customer} that the PhoneNumber belongs to
-     *
-     * @return {@link Customer} customer that the PhoneNumber belongs to
-     */
+    /// Returns the [Customer] that the PhoneNumber belongs to
+    ///
+    /// @return [Customer] customer that the PhoneNumber belongs to
     public Customer getCustomer() {
         return customer;
     }
 
-    /**
-     * sets the {@link Customer} that the PhoneNumber belongs to
-     *
-     * @param customer {@link Customer} customer that the PhoneNumber belongs to
-     */
+    /// sets the [Customer] that the PhoneNumber belongs to
+    ///
+    /// @param customer [Customer] customer that the PhoneNumber belongs to
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    /**
-     * Returns the status of the PhoneNumber
-     *
-     * @return {@link PhoneNumberStatus} the status of the PhoneNumber
-     */
+    /// Returns the status of the PhoneNumber
+    ///
+    /// @return [PhoneNumberStatus] the status of the PhoneNumber
     public PhoneNumberStatus getStatus() {
         return status;
     }
 
-    /**
-     * Sets the status of the PhoneNumber
-     *
-     * @param status {@link PhoneNumberStatus} the status of the PhoneNumber
-     */
+    /// Sets the status of the PhoneNumber
+    ///
+    /// @param status [PhoneNumberStatus] the status of the PhoneNumber
     public void setStatus(PhoneNumberStatus status) {
         this.status = status;
     }

@@ -7,9 +7,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size; // Import Size annotation
 
-/**
- * Entity Model representing a customer
- */
+/// Entity Model representing a customer
 @Entity
 @Table(name = "customers")
 public class Customer {
@@ -23,38 +21,30 @@ public class Customer {
     @Column(name = "name")
     private String name;
 
-    /**
-     * Returns customer id
-     *
-     * @return {@link Long} the id
-     */
+    /// Returns customer id
+    ///
+    /// @return [Long] the id
     public Long getId() {
         return id;
     }
 
-    /**
-     * Sets the Customer Id
-     *
-     * @param id customer id
-     */
+    /// Sets the Customer Id
+    ///
+    /// @param id customer id
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * Returns the Customer name
-     *
-     * @return {@link String} the Customer name
-     */
+    /// Returns the Customer name
+    ///
+    /// @return [String] the Customer name
     public String getName() {
         return name;
     }
 
-    /**
-     * Sets the Customer name
-     *
-     * @param name the Customer name
-     */
+    /// Sets the Customer name
+    ///
+    /// @param name the Customer name
     public void setName(String name) {
         this.name = name;
     }

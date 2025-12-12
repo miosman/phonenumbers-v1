@@ -15,9 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 
-/**
- * PhoneNumberService class is responsible for searching and updating phone numbers.
- */
+/// PhoneNumberService class is responsible for searching and updating phone numbers.
 @Service
 public class PhoneNumberService {
 
@@ -27,14 +25,12 @@ public class PhoneNumberService {
         this.phoneNumberRepository = phoneNumberRepository;
     }
 
-    /**
-     * Searches for phone numbers based on the customer name, page, and limit.
-     *
-     * @param customerName The name of the customer. Can be empty or null.
-     * @param page The page number.
-     * @param limit The maximum number of records per page.
-     * @return The response containing the total count of records and a list of phone number records.
-     */
+    /// Searches for phone numbers based on the customer name, page, and limit.
+    ///
+    /// @param customerName The name of the customer. Can be empty or null.
+    /// @param page The page number.
+    /// @param limit The maximum number of records per page.
+    /// @return The response containing the total count of records and a list of phone number records.
     public PhoneNumbersPageResponseDTO searchPhoneNumbers(String customerName, int page, int limit) {
         if (page < 0 || limit <= 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid page or limit values");
@@ -58,14 +54,12 @@ public class PhoneNumberService {
         }
     }
 
-    /**
-     * Updates the status of a phone number.
-     *
-     * @param subscriberNumber The subscriber number of the phone number.
-     * @param status The new status to be set for the phone number.
-     * @return The updated phone number.
-     * @throws ResponseStatusException If the phone number with the given subscriber number doesn't exist.
-     */
+    /// Updates the status of a phone number.
+    ///
+    /// @param subscriberNumber The subscriber number of the phone number.
+    /// @param status The new status to be set for the phone number.
+    /// @return The updated phone number.
+    /// @throws ResponseStatusException If the phone number with the given subscriber number doesn't exist.
     public PhoneNumberDTO updatePhoneNumberStatus(String subscriberNumber, PhoneNumberStatus status) {
         Optional<PhoneNumber> phoneNumber = phoneNumberRepository.findById(subscriberNumber);
         if (phoneNumber.isPresent()) {
@@ -78,12 +72,10 @@ public class PhoneNumberService {
         }
     }
 
-    /**
-     * Maps a PhoneNumber entity to its DTO representation.
-     *
-     * @param phoneNumber The phone number entity to be mapped
-     * @return A {@link PhoneNumberDTO} containing the subscriber number, customer name and status
-     */
+    /// Maps a PhoneNumber entity to its DTO representation.
+    ///
+    /// @param phoneNumber The phone number entity to be mapped
+    /// @return A [PhoneNumberDTO] containing the subscriber number, customer name and status
     private PhoneNumberDTO mapToPhoneNumberDTO(PhoneNumber phoneNumber) {
         return new PhoneNumberDTO(
                 phoneNumber.getSubscriberNumber(),
